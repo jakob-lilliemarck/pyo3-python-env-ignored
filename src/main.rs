@@ -1,4 +1,5 @@
 use pyo3::prelude::*;
+use std::env;
 
 pub fn ping() {
     Python::with_gil(|py| {
@@ -12,5 +13,11 @@ pub fn ping() {
 }
 
 fn main() {
+    dotenv::dotenv().ok();
+
+    let executable = env::var("PYO3_PYTHON").expect("PYO3_PYTHON must be configured");
+    
+    println!("Configured executable path: {}", executable);
+
     ping();
 }
